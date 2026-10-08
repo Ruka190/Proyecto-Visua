@@ -1,0 +1,9 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/../.venv/Scripts/python.exe",
+  "python.terminal.activateEnvironment": true,
+  "django-venv-workspace": true,
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/db.sqlite3": true
+  }
+}
