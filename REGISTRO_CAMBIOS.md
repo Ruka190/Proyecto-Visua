@@ -71,10 +71,38 @@ entrada nueva aquí antes de hacer commit.
   - `REGISTRO_CAMBIOS.md` — este documento.
 - **Resultado:** VS Code abre el proyecto con el entorno correcto preseleccionado.
 
+### Repo — Intento de push a `origin` (fallido) y cambio a repo provisional
+- **Tipo:** Repo
+- **Acción:**
+  - Primer push a `origin` (`Ruka190/Proyecto-Visua`) → **error 403**: las credenciales
+    guardadas en el equipo pertenecían a otra cuenta (`pepe2390`).
+  - Se eliminó la credencial obsoleta de `github.com` y se repitió el push para
+    autenticar con la cuenta **Ruka190** (login con navegador vía Git Credential Manager).
+  - A petición del usuario, se creó el remote **`provisional`** apuntando a
+    `https://github.com/Ruka190/blahblahblah.git` (repo nuevo, vacío) para trabajar
+    sin arriesgar el repositorio original.
+  - Primer push al repo provisional devolvió también 403 (credencial aún refrescándose);
+    un reintento inmediato funcionó.
+- **Resultado:** `main` publicada en el repo provisional
+  (`provisional/main` → commit `6ab24aa` "Agrega registro de cambios y configuracion
+  de VS Code"), tracking configurado con `-u provisional main`.
+  **`origin` (Proyecto-Visua) NO recibió ningún push** — sigue intacto.
+
+### Configuración — Estado actual de remotes
+- **Tipo:** Repo / Configuración
+- **Acción:** `git remote -v` queda así:
+  - `origin` → `https://github.com/Ruka190/Proyecto-Visua.git` (repo original, solo lectura por ahora)
+  - `provisional` → `https://github.com/Ruka190/blahblahblah.git` (destino de push actual)
+- **Resultado:** Todo push se envía a `provisional` hasta que el usuario indique lo contrario.
+
 ---
 
 ## Pendiente / notas
-- Push de estos cambios a `origin/main` (requiere autorizar Git Credential Manager
-  en el navegador la primera vez).
+- **Push a `origin` bloqueado (403):** el usuario Ruka190 no tiene permiso de escritura
+  confirmado sobre `Proyecto-Visua` desde esta máquina. Verificar: (1) que la cuenta
+  Ruka190 sea dueña o collaboradora del repo original, (2) el token/permisos de la
+  sesión de GitHub. Hasta entonces, todos los pushes van a `provisional`.
+- El repo `blahblahblah` es **provisional**: cuando el problema de permisos con
+  `origin` se resuelva, migrar (push a origin) y opcionalmente eliminar el remote.
 - Próximas entradas: cada cambio de código, migración nueva, dependencia añadida
   o decisión de diseño se registra aquí antes del commit correspondiente.
