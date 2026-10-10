@@ -122,7 +122,7 @@
             <a href="{% url 'index' %}" {% if request.resolver_match.url_name == 'index' %}class="is-active"{% endif %}>Inicio</a>
             <a href="{% url 'contacto' %}" {% if request.resolver_match.url_name == 'contacto' %}class="is-active"{% endif %}>Contacto</a>
             <a href="#">Nuestra Misión</a>
-            <a href="#">FAQ</a>
+            <a href="{% url 'faq' %}" {% if request.resolver_match.url_name == 'faq' %}class="is-active"{% endif %}>FAQ</a>
         </nav>
     </header>
 
@@ -136,7 +136,7 @@
             <a href="{% url 'index' %}">Inicio</a>
             <a href="{% url 'contacto' %}">Contacto</a>
             <a href="#">Nuestra Misión</a>
-            <a href="#">FAQ</a>
+            <a href="{% url 'faq' %}">FAQ</a>
         </nav>
     </footer>
 

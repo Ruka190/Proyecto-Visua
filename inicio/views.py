@@ -9,3 +9,6 @@ def usuario(request):
 
 def contacto(request):
     return render(request, 'inicio/contacto.html')
+
+def faq(request):
+    return render(request, 'inicio/faq.html')
