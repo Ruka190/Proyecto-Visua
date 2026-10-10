@@ -4,68 +4,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dos Botones Centrados</title>
+    <title>Beyond Date</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            min-height: 100vh;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #4a4a4a;
+            background-color: #ffffff;
+        }
+
+        /* ---------- Cabecera (Header) ---------- */
+        .site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 18px 48px;
+            background-color: #ffffff;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+        .brand__logo {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            object-fit: cover;
+        }
+        .brand__name {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 22px;
+            color: #4a4a4a;
+        }
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        /* Botones del menú: píldora color crema; al pasar el ratón -> rosa salmón pastel */
+        .main-nav a {
+            display: inline-block;
+            padding: 10px 22px;
+            border-radius: 999px;
+            background-color: #FBF7F2;
+            color: #4a4a4a;
+            font-size: 14px;
+            text-align: center;
+            line-height: 1.15;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+        .main-nav a:hover {
+            background-color: #F7D9D2;
+        }
+
+        /* ---------- Sección principal (Hero) ---------- */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 56px 64px 72px;
+            background: linear-gradient(180deg, #FFF9F5 0%, #FBE7E0 100%);
+        }
+        .hero__content { max-width: 560px; }
+        .hero__title {
+            font-size: 44px;
+            font-weight: 700;
+            line-height: 1.15;
+            color: #4a4a4a;
+        }
+        .hero__title .accent { color: #A63A32; }
+        .hero__text {
+            margin-top: 22px;
+            max-width: 520px;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #5c5c5c;
+        }
+        .hero__actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .pill-btn {
+            display: inline-block;
+            padding: 16px 34px;
+            border-radius: 999px;
+            background-color: #FFFDF9;
+            color: #4a4a4a;
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.2;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        .pill-btn:hover {
+            background-color: #F7D9D2;
+            transform: translateY(-2px);
+        }
+        .hero__art {
+            flex: 1;
             display: flex;
             justify-content: center;
-            align-items: center;
-            background-color: #E7D8D2;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-        .button-container { display: flex; gap: 20px; }
-        .btn {
-            display: inline-block;
-            padding: 14px 28px;
-            font-size: 16px;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.2s ease-in-out;
-            cursor: pointer;
+        .hero__art img {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+        }
+        .hero__placeholder {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 380px;
+            min-height: 320px;
+            border: 2px dashed #E3B9AE;
+            border-radius: 24px;
+            background-color: rgba(255, 255, 255, 0.55);
+            color: #A63A32;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* ---------- Sección de opiniones ---------- */
+        .opinions {
+            padding: 64px 48px 72px;
+            background-color: #FFFDFB;
             text-align: center;
         }
-        .btn-primary { background-color: #ff7f54; color: #ffffff; }
-        .btn-primary:hover { background-color: #fc5d27; transform: translateY(-2px); }
-        .btn-secondary { background-color: #ff7f54; color: #ffffff; }
-        .btn-secondary:hover { background-color: #fc5d27; transform: translateY(-2px); }
+        .opinions__title {
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #4a4a4a;
+        }
+        .opinions__cards {
+            margin-top: 36px;
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .card {
+            flex: 1 1 280px;
+            max-width: 340px;
+            padding: 28px 26px;
+            border: 1px solid #F3CFC4;
+            border-radius: 24px;
+            background-color: #FDECE7;
+            text-align: left;
+        }
+        .card p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #4a4a4a;
+        }
+        .card span {
+            display: block;
+            margin-top: 18px;
+            font-size: 14px;
+            color: #6b6b6b;
+        }
 
-        /* Ícono de la aplicación */
-        .app-icon {
-            position: fixed;
-            width: 80px;
-            height: auto;
-            z-index: 1000;
-            pointer-events: none;
+        /* ---------- Pie de página (Footer) ---------- */
+        .site-footer {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            padding: 28px 48px;
+            background-color: #F4A98F;
         }
-        /* Esquina superior izquierda */
-        .app-icon--top {
-            top: 16px;
-            left: 16px;
+        .site-footer__logo {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            object-fit: cover;
         }
-        /* Parte inferior (centro) */
-        .app-icon--bottom {
-            bottom: 16px;
-            left: 50%;
-            transform: translateX(-50%);
+        .site-footer__nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .site-footer__nav a {
+            color: #3f3f3f;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .site-footer__nav a:hover { text-decoration: underline; }
+
+        /* ---------- Adaptación a pantallas pequeñas ---------- */
+        @media (max-width: 900px) {
+            .site-header { flex-direction: column; align-items: flex-start; padding: 18px 24px; }
+            .main-nav { justify-content: flex-start; }
+            .hero { flex-direction: column; padding: 40px 24px 56px; }
+            .hero__title { font-size: 34px; }
+            .opinions { padding: 48px 24px 56px; }
+            .site-footer { padding: 24px; }
         }
     </style>
 </head>
 <body>
-    <!-- Ícono de la aplicación: esquina superior izquierda -->
-    <img src="{% static 'inicio/img/icono.png' %}" alt="Ícono de la aplicación" class="app-icon app-icon--top">
 
-    <!-- Ícono de la aplicación: parte inferior -->
-    <img src="{% static 'inicio/img/icono.png' %}" alt="Ícono de la aplicación" class="app-icon app-icon--bottom">
+    <!-- ================= Cabecera ================= -->
+    <header class="site-header">
+        <a class="brand" href="{% url 'index' %}">
+            <img class="brand__logo" src="{% static 'inicio/img/icono.png' %}" alt="Logo Beyond Date">
+            <span class="brand__name">Beyond Date</span>
+        </a>
 
-    <div class="button-container">
-    <!-- Botones sin función por ahora -->
-    <a href="#" class="btn btn-primary">Administrador</a>
-    
-    <!-- AQUÍ ESTÁ EL CAMBIO: Reemplazamos el "#" por la ruta de Django -->
-    <a href="{% url 'usuario' %}" class="btn btn-secondary">Usuario</a>
-</div>
+        <nav class="main-nav">
+            <a href="{% url 'index' %}">Inicio</a>
+            <a href="#">Contacto</a>
+            <a href="#">Nuestra<br>Misión</a>
+            <a href="#">FAQ</a>
+        </nav>
+    </header>
+
+    <!-- ================= Sección principal (Hero) ================= -->
+    <main>
+        <section class="hero">
+            <div class="hero__content">
+                <h1 class="hero__title">
+                    Conoce a alguien<br>
+                    <span class="accent">que realmente</span><br>
+                    encaje contigo
+                </h1>
+
+                <p class="hero__text">
+                    Con Benyond Date, busca a tu pareja ideal basandote en su personalidad,
+                    intereses y lo que realmente estas buscando para encontrar relaciones
+                    reales y significativas
+                </p>
+
+                <div class="hero__actions">
+                    <a href="#" class="pill-btn">Encontrar<br>mi match</a>
+                    <a href="{% url 'usuario' %}" class="pill-btn">Crear<br>mi perfil</a>
+                </div>
+            </div>
+
+            <div class="hero__art">
+                <!-- Cuando esté disponible, esta imagen se mostrará automáticamente -->
+                <img src="{% static 'inicio/img/corazon-3d.png' %}" alt="Corazón de cristal con símbolo de infinito"
+                     onerror="this.style.display='none'; document.getElementById('hero-placeholder').style.display='flex';">
+                <div id="hero-placeholder" class="hero__placeholder">
+                    Aquí va el render 3D del corazón de cristal<br>con el símbolo de infinito
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= Opiniones ================= -->
+        <section class="opinions">
+            <h2 class="opinions__title">OPINIONES</h2>
+
+            <div class="opinions__cards">
+                <article class="card">
+                    <p>Por fin conversaciones reales que pasan del 'hola, ¿cómo estás?'. Romper el hielo se siente natural y sin incomodidad.</p>
+                    <span>Vale, 24</span>
+                </article>
+
+                <article class="card">
+                    <p>Te fijas en la personalidad y el día a día antes que en poses editadas. Dejé de deslizar en piloto automático.</p>
+                    <span>Tomás, 28</span>
+                </article>
+
+                <article class="card">
+                    <p>Pocos perfiles al día, pero con personas que de verdad buscan lo mismo. Menos matches acumulados, mejores citas.</p>
+                    <span>Cami, 26</span>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= Pie de página ================= -->
+    <footer class="site-footer">
+        <img class="site-footer__logo" src="{% static 'inicio/img/icono.png' %}" alt="Logo Beyond Date">
+
+        <nav class="site-footer__nav">
+            <a href="{% url 'index' %}">Inicio</a>
+            <a href="#">Contacto</a>
+            <a href="#">Nuestra Misión</a>
+            <a href="#">FAQ</a>
+        </nav>
+    </footer>
+
 </body>
 </html>
