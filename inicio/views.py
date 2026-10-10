@@ -6,3 +6,6 @@ def index(request):
 
 def usuario(request):
     return render(request, 'inicio/usuario.html')
+
+def contacto(request):
+    return render(request, 'inicio/contacto.html')
