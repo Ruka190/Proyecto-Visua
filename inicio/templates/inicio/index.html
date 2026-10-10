@@ -42,11 +42,12 @@
             color: #4a4a4a;
         }
         .main-nav {
+            flex: 1;
             display: flex;
             align-items: center;
-            gap: 18px;
+            justify-content: space-between;
+            gap: 12px;
             flex-wrap: wrap;
-            justify-content: flex-end;
         }
         /* Botones del menú: píldora color crema; al pasar el ratón -> rosa salmón pastel */
         .main-nav a {
@@ -258,7 +259,7 @@
         /* ---------- Adaptación a pantallas pequeñas ---------- */
         @media (max-width: 900px) {
             .site-header { flex-direction: column; align-items: flex-start; padding: 18px 24px; }
-            .main-nav { justify-content: flex-start; }
+            .main-nav { flex: none; width: 100%; justify-content: flex-start; }
             .hero { flex-direction: column; padding: 40px 24px 56px; }
             .hero__title { font-size: 34px; }
             .opinions { padding: 48px 24px 56px; }
