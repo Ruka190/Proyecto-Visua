@@ -53,35 +53,5 @@
   </div>
 </div>
 
-<!-- Imagen que sigue al ratón -->
-<img id="gato-sigue-raton" src="{% static 'inicio/img/gato1.jpg' %}" alt="Gato que sigue al ratón"
-     style="position: fixed; top: 0; left: 0; width: 90px; height: auto;
-            pointer-events: none; z-index: 9999; will-change: transform;">
-
-<script>
-  (function () {
-    const gato = document.getElementById('gato-sigue-raton');
-    let ratonX = window.innerWidth / 2;
-    let ratonY = window.innerHeight / 2;
-    let x = ratonX;
-    let y = ratonY;
-
-    // Guardamos la posición real del ratón
-    document.addEventListener('mousemove', function (e) {
-      ratonX = e.clientX;
-      ratonY = e.clientY;
-    });
-
-    // La imagen se mueve suavemente hacia el ratón (efecto de seguimiento)
-    function animar() {
-      x += (ratonX - x) * 0.15;
-      y += (ratonY - y) * 0.15;
-      gato.style.transform = 'translate(' + x + 'px, ' + y + 'px) translate(-50%, -50%)';
-      requestAnimationFrame(animar);
-    }
-    animar();
-  })();
-</script>
-
 </body>
 </html>
