@@ -98,7 +98,6 @@
             text-decoration: none;
         }
         .site-footer__nav a:hover { text-decoration: underline; }
-        .site-footer__nav a.is-active { color: #A63A32; font-weight: 700; }
 
         /* ---------- Adaptación a pantallas pequeñas ---------- */
         @media (max-width: 900px) {
@@ -134,8 +133,8 @@
         <img class="site-footer__logo" src="{% static 'inicio/img/icono.png' %}" alt="Logo Beyond Date">
 
         <nav class="site-footer__nav">
-            <a href="{% url 'index' %}" {% if request.resolver_match.url_name == 'index' %}class="is-active"{% endif %}>Inicio</a>
-            <a href="{% url 'contacto' %}" {% if request.resolver_match.url_name == 'contacto' %}class="is-active"{% endif %}>Contacto</a>
+            <a href="{% url 'index' %}">Inicio</a>
+            <a href="{% url 'contacto' %}">Contacto</a>
             <a href="#">Nuestra Misión</a>
             <a href="#">FAQ</a>
         </nav>
