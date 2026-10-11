@@ -16,9 +16,8 @@
   </svg>
 
   <div class="bd-hero-actions">
-    <!-- TODO Bloque 4 siguiente: conectar a login / registro reales -->
-    <a href="#" class="btn btn-primary">Iniciar sesión</a>
-    <a href="#" class="btn bd-btn-secondary">Crear cuenta</a>
+    <a href="{% url 'login' %}" class="btn btn-primary">Iniciar sesión</a>
+    <a href="{% url 'registro' %}" class="btn bd-btn-secondary">Crear cuenta</a>
   </div>
   <small class="bd-caption mt-3">Al continuar aceptas nuestros términos y política de privacidad.</small>
 </section>
