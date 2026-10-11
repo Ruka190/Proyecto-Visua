@@ -18,6 +18,9 @@ def contacto(request):
 def faq(request):
     return render(request, 'inicio/faq.html')
 
+def mision(request):
+    return render(request, 'inicio/mision.html')
+
 
 def login_view(request):
     """Bloque 4: Iniciar sesión con usuario o correo."""
