@@ -1,0 +1,53 @@
+/* ==========================================================================
+   BEYOND DATE — AUTH (inicio/static/inicio/css/auth.css)
+   Tarjetas Login / Registro del Miro: hero imagen + card blanca.
+   ========================================================================== */
+.bd-auth-wrap {
+  max-width: 980px;
+  margin: 32px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.bd-auth-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.bd-auth-hero {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding: 48px 24px 32px;
+  text-align: center;
+  color: var(--color-text-muted);
+  border-radius: 0 0 50% 50% / 0 0 24px 24px;
+}
+.bd-auth-hero-icon {
+  width: 84px;
+  height: 84px;
+  margin: 0 auto;
+  border: 3px solid var(--color-text-muted);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+.bd-auth-body { padding: 24px; }
+.bd-auth-body .form-control {
+  border: 1px solid var(--color-border-control);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.bd-auth-body .form-control:focus {
+  border-color: var(--color-wine);
+  box-shadow: 0 0 0 3px var(--color-blush);
+}
+.bd-auth-alt { text-align: center; margin-top: 10px; }
+.bd-auth-alt a { color: var(--color-text); font-size: 14px; }
+
+@media (max-width: 768px) {
+  .bd-auth-wrap { grid-template-columns: 1fr; }
+}

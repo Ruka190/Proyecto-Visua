@@ -1,0 +1,47 @@
+{% extends "inicio/base.html" %}
+{% block title %}Beyond Date — Crear cuenta{% endblock %}
+{% block extra_css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'inicio/css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="bd-auth-wrap">
+  <div class="bd-auth-card">
+    <div class="bd-auth-hero">
+      <div class="bd-auth-hero-icon">🖼</div>
+    </div>
+    <div class="bd-auth-body">
+      <h1 class="bd-h1">Registro</h1>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger" role="alert">{{ form.non_field_errors }}</div>
+        {% endif %}
+        {% for field in form %}
+          <label class="bd-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}<small class="bd-caption" style="color:var(--color-danger);">{{ field.errors|striptags }}</small>{% endif %}
+        {% endfor %}
+        <div class="text-center mt-3">
+          <button type="submit" class="btn btn-primary">Crear cuenta</button>
+          <div class="bd-auth-alt">
+            <a href="{% url 'login' %}">Iniciar sesión</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="bd-auth-card">
+    <div class="bd-auth-hero">
+      <div class="bd-auth-hero-icon">🖼</div>
+    </div>
+    <div class="bd-auth-body text-center">
+      <h2 class="bd-h2" style="margin-top:0;">¿Ya tienes cuenta?</h2>
+      <p class="bd-body mx-auto">Entra con tu usuario o correo para continuar.</p>
+      <a href="{% url 'login' %}" class="btn btn-compact">Ir a login</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
