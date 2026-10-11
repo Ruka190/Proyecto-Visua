@@ -1,0 +1,40 @@
+{% extends 'inicio/base.html' %}
+{% load static %}
+
+{% block title %}Cuéntanos sobre ti · Beyond Date{% endblock %}
+
+{% block extra_head %}
+        <link rel="stylesheet" href="{% static 'inicio/css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <section class="auth">
+            <div class="auth-card auth-card--wide">
+                <span class="auth-step">Paso 1 de 2 · Info crear usuario</span>
+                <h1 class="auth-card__title">Cuéntanos sobre ti</h1>
+                <p class="auth-card__subtitle">Esta info se mostrará en tu perfil. Podrás editarla después.</p>
+
+                <form method="post" novalidate class="auth-form">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="auth-error auth-error--block">{{ form.non_field_errors }}</div>
+                    {% endif %}
+
+                    {% for field in form %}
+                        <label class="bd-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}<small class="bd-help">{{ field.help_text }}</small>{% endif %}
+                        {% if field.errors %}<small class="auth-error">{{ field.errors|striptags }}</small>{% endif %}
+                    {% endfor %}
+
+                    <div class="auth-actions">
+                        <button type="submit" class="btn-primary">Guardar y continuar</button>
+                        <a href="{% url 'preferencias' %}" class="btn-compact">Omitir por ahora</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+{% endblock %}

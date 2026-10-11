@@ -1,0 +1,37 @@
+{% extends 'inicio/base.html' %}
+{% load static %}
+
+{% block title %}Iniciar sesión · Beyond Date{% endblock %}
+
+{% block extra_head %}
+        <link rel="stylesheet" href="{% static 'inicio/css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <section class="auth">
+            <div class="auth-card">
+                <h1 class="auth-card__title">Iniciar sesión</h1>
+                <p class="auth-card__subtitle">Entra con tu nombre de usuario o correo para continuar.</p>
+
+                <form method="post" novalidate class="auth-form">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="auth-error auth-error--block">{{ form.non_field_errors }}</div>
+                    {% endif %}
+
+                    {% for field in form %}
+                        <label class="bd-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}<small class="auth-error">{{ field.errors|striptags }}</small>{% endif %}
+                    {% endfor %}
+
+                    <button type="submit" class="btn-primary">Iniciar sesión</button>
+                </form>
+
+                <p class="auth-alt">¿Aún no tienes cuenta? <a href="{% url 'registro' %}">Crear cuenta</a></p>
+            </div>
+        </section>
+    </main>
+{% endblock %}

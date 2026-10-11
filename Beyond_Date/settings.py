@@ -117,6 +117,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Autenticación (Bloque 4)
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'usuario'
+LOGOUT_REDIRECT_URL = 'index'
+
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
