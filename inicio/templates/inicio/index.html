@@ -1,44 +1,45 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dos Botones Centrados</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #E7D8D2;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-        .button-container { display: flex; gap: 20px; }
-        .btn {
-            display: inline-block;
-            padding: 14px 28px;
-            font-size: 16px;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.2s ease-in-out;
-            cursor: pointer;
-            text-align: center;
-        }
-        .btn-primary { background-color: #ff7f54; color: #ffffff; }
-        .btn-primary:hover { background-color: #fc5d27; transform: translateY(-2px); }
-        .btn-secondary { background-color: #ff7f54; color: #ffffff; }
-        .btn-secondary:hover { background-color: #fc5d27; transform: translateY(-2px); }
-    </style>
-</head>
-<body>
-    <div class="button-container">
-    <!-- Botones sin función por ahora -->
-    <a href="#" class="btn btn-primary">Administrador</a>
-    
-    <!-- AQUÍ ESTÁ EL CAMBIO: Reemplazamos el "#" por la ruta de Django -->
-    <a href="{% url 'usuario' %}" class="btn btn-secondary">Usuario</a>
-</div>
-</body>
-</html>
+{% extends "inicio/base.html" %}
+{% block title %}Beyond Date — Inicio{% endblock %}
+
+{% block content %}
+<!-- HERO: único H1 por pantalla -->
+<section class="bd-hero">
+  <h1 class="bd-display">Conecta con lo que importa.</h1>
+  <p class="bd-body-lg mx-auto" style="max-width: 620px;">
+    Compatibilidad basada en valores y estilo de vida, no solo en fotos.
+  </p>
+
+  <!-- Corazón decorativo coral (no texto) -->
+  <svg class="bd-hero-heart" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 21s-7.5-4.9-10-9.3C.4 8.6 2.3 5 5.7 5c2 0 3.4 1.1 4.1 2.3h4.4C15 6.1 16.4 5 18.4 5c3.4 0 5.3 3.6 3.7 6.7C19.5 16.1 12 21 12 21z" opacity="0.9"/>
+    <path d="M12 21s-7.5-4.9-10-9.3C.4 8.6 2.3 5 5.7 5c2 0 3.4 1.1 4.1 2.3h4.4C15 6.1 16.4 5 18.4 5c3.4 0 5.3 3.6 3.7 6.7C19.5 16.1 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  </svg>
+
+  <div class="bd-hero-actions">
+    <!-- TODO Bloque 4 siguiente: conectar a login / registro reales -->
+    <a href="#" class="btn btn-primary">Iniciar sesión</a>
+    <a href="#" class="btn bd-btn-secondary">Crear cuenta</a>
+  </div>
+  <small class="bd-caption mt-3">Al continuar aceptas nuestros términos y política de privacidad.</small>
+</section>
+
+<!-- 3 COLUMNAS: Valores / Conexión / etc. (del Miro: xto / Texto / tex) -->
+<section class="bd-features">
+  <div class="row g-3 text-center">
+    <div class="col-md-4">
+      <h3 class="bd-h3">Valores</h3>
+      <p class="bd-body mx-auto" style="margin-bottom:0;">Match por principios, intereses y forma de ver la vida.</p>
+    </div>
+    <div class="col-md-4" style="border-left:1px solid var(--color-border-subtle); border-right:1px solid var(--color-border-subtle);">
+      <h3 class="bd-h3">Conexiones reales</h3>
+      <p class="bd-body mx-auto" style="margin-bottom:0;">Conversaciones auténticas, sin superficialidad.</p>
+    </div>
+    <div class="col-md-4">
+      <h3 class="bd-h3">Seguridad</h3>
+      <p class="bd-body mx-auto" style="margin-bottom:0;">Perfiles verificados y tecnología ética.</p>
+    </div>
+  </div>
+</section>
+
+{% include "inicio/includes/mission_section.html" %}
+{% endblock %}
