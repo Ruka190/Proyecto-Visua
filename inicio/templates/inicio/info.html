@@ -1,0 +1,35 @@
+{% extends "inicio/base.html" %}
+{% block title %}Beyond Date — Cuéntanos sobre ti (1/2){% endblock %}
+{% block extra_css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'inicio/css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 720px; margin: 32px auto;">
+  <span class="bd-label" style="color: var(--color-primary);">PASO 1 DE 2 · INFO CREAR USUARIO</span>
+  <h1 class="bd-h1">Cuéntanos sobre ti</h1>
+  <p class="bd-body">Esta info se mostrará en tu perfil. Podrás editarla después.</p>
+
+  <div class="bd-auth-card">
+    <div class="bd-auth-body">
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+        {% endif %}
+        {% for field in form %}
+          <label class="bd-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.help_text %}<small class="bd-caption">{{ field.help_text }}</small>{% endif %}
+          {% if field.errors %}<small class="bd-caption" style="color:var(--color-danger);">{{ field.errors|striptags }}</small>{% endif %}
+        {% endfor %}
+        <div class="d-flex gap-2 mt-3">
+          <button type="submit" class="btn btn-primary">Guardar y continuar</button>
+          <a href="{% url 'preferencias' %}" class="btn btn-compact">Omitir por ahora</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
