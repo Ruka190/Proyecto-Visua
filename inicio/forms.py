@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 
 from .models import Perfil, Preferencia
 
-# Campos con clases Bootstrap + tokens Beyond Date (bd-body form-control).
-_INPUT_CLS = 'form-control bd-body'
+# Clases de estilo del proyecto Beyond Date (adaptadas al estilo del provisional).
+_INPUT_CLS = 'bd-input'
 
 
 class RegistroForm(UserCreationForm):

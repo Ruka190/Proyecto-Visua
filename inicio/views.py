@@ -12,6 +12,15 @@ def index(request):
 def usuario(request):
     return render(request, 'inicio/usuario.html')
 
+def contacto(request):
+    return render(request, 'inicio/contacto.html')
+
+def faq(request):
+    return render(request, 'inicio/faq.html')
+
+def mision(request):
+    return render(request, 'inicio/mision.html')
+
 
 def login_view(request):
     """Bloque 4: Iniciar sesión con usuario o correo."""
