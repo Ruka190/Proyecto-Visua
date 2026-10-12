@@ -117,7 +117,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# Bloque 4: auth
+# Autenticación (Bloque 4)
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'usuario'
 LOGOUT_REDIRECT_URL = 'index'
