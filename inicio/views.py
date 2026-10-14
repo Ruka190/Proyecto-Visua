@@ -1,7 +1,9 @@
+import json
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 from .forms import RegistroForm, LoginForm, PerfilForm, PreferenciaForm
 from .models import Perfil, Preferencia
 
@@ -20,6 +22,48 @@ def faq(request):
 
 def mision(request):
     return render(request, 'inicio/mision.html')
+
+def administrador(request):
+    return render(request, 'admin/administrador.html')
+
+def admin_inicio(request):
+    labels = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"]
+    datasets = [{
+        "label": "Ventas ($)",
+        "data": [120, 180, 90, 220, 150],
+        "tension": 0.2,
+        "fill": True,
+    }]
+    return render(request, "admin/inicio.html", {
+        "labels_json": json.dumps(labels, ensure_ascii=False),
+        "datasets_json": json.dumps(datasets, ensure_ascii=False),
+    })
+
+def admin_dinero(request):
+
+    labels = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"]
+    datasets = [{
+            "label": "Ventas ($)",
+            "data": [120, 180, 90, 220, 150],
+            "tension": 0.2,
+            "fill": True,
+        }]
+    datasets2 = [{
+                "label": "Ventas ($)",
+                "data": [10, 50, 90, 30, -10],
+                "tension": 0.2,
+                "fill": True,
+            }]
+    context = {
+        "labels_json": json.dumps(labels, ensure_ascii=False),
+        "datasets_json": json.dumps(datasets, ensure_ascii=False),
+        "datasets2_json": json.dumps(datasets2, ensure_ascii=False),
+    }
+
+    return render(request, "admin/dinero.html", context)
+
+def admin_notificaciones(request):
+    return render(request, "admin/notificacion.html")
 
 
 def login_view(request):

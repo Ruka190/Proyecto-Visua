@@ -1,0 +1,66 @@
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+
+{% block title %}Inicio del administrador{% endblock %}
+
+{% block header %}
+    <div class="admin-welcome">
+        <img class="avatar-img"
+             src="{% static 'admin/javier.jpg' %}"
+             alt="Foto de Javier">
+        <h1>Bienvenido, Javier</h1>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <section class="admin-panel" aria-label="Resumen del sitio">
+        <div class="admin-stats">
+            <article class="admin-stat-card">
+                <h2>Total de usuarios</h2>
+                <p>591.249</p>
+            </article>
+
+            <article class="admin-stat-card">
+                <h2>Reportes de usuarios</h2>
+                <p>249</p>
+            </article>
+
+            <article class="admin-stat-card">
+                <h2>Usuarios activos</h2>
+                <p>639</p>
+            </article>
+
+            <article class="admin-stat-card">
+                <h2>Matches acumulados</h2>
+                <p>2.249</p>
+            </article>
+        </div>
+    </section>
+
+
+     <section class="admin-panel admin-panel--chart"
+             aria-label="Gráfico de actividad">
+        <canvas id="ventasChart" height="120"></canvas>
+    </section>
+{% endblock %}
+
+
+{% block body_extra %}
+  <script src="{% static 'chart.umd.min.js' %}"></script>
+  <script>
+    // Recupera JSON seguro desde la view
+    const labels   = JSON.parse('{{ labels_json|escapejs }}');
+    const datasets = JSON.parse('{{ datasets_json|escapejs }}');
+
+    new Chart(document.getElementById("ventasChart"), {
+      type: "line",
+      data: { labels, datasets },
+      options: {
+        responsive: true,
+        interaction: { mode: "index", intersect: false },
+        plugins: { legend: { position: "top" } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+  </script>
+{% endblock %}

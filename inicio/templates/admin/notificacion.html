@@ -1,0 +1,48 @@
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+
+{% block title %}Notificaciones admin{% endblock %}
+
+
+{% block header %}
+    <div class="admin-welcome">
+        <h1>Notificaciones</h1>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+<div class="list-group notificaciones">
+  <a href="#" class="notificacion">
+    <img class="notificacion-icono"
+         src="{% static 'admin/img/botonNotificacionAdmin.png' %}"
+         alt="">
+
+    <span class="notificacion-texto">
+      <span class="notificacion-titulo">Usuario Reportado</span>
+      <span class="notificacion-descripcion">
+        Nuevo reporte usuario Maria Paquita por...
+      </span>
+    </span>
+
+    <img class="notificacion-flecha"
+         src="{% static 'admin/img/BotonFlechaD.png' %}"
+         alt="">
+  </a>
+
+  <a href="#" class="notificacion">
+    <img class="notificacion-icono"
+         src="{% static 'admin/img/botonNotificacionAdmin.png' %}"
+         alt="">
+
+    <span class="notificacion-texto">
+      <span class="notificacion-titulo">Nuevo Mensaje</span>
+      <span class="notificacion-descripcion">Nuevo correo recibido.</span>
+    </span>
+
+    <img class="notificacion-flecha"
+         src="{% static 'admin/img/BotonFlechaD.png' %}"
+         alt="">
+  </a>
+</div>
+{% endblock %}

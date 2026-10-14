@@ -1,0 +1,54 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Panel administrador{% endblock %} · Beyond Date</title>
+
+    <link rel="stylesheet" href="{% static 'inicio/css/variables.css' %}">
+    <link rel="stylesheet" href="{% static 'inicio/css/typography.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/admin.css' %}?v=notificaciones-2">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+<div class="admin-dashboard">
+
+    <header class="admin-header">
+        {% block header %}
+            <h1>{% block page_title %}Panel administrador{% endblock %}</h1>
+        {% endblock %}
+    </header>
+
+    <main class="admin-main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <nav class="admin-navigation" aria-label="Navegación del administrador">
+            <!-- Los enlaces a otras páginas se conectarán cuando existan sus URLs -->
+            <a href="#" class="admin-nav-item" aria-label="Mensajes">
+                <img src="{% static 'admin/img/botonMensajeAdmin.png' %}" alt="">
+            </a>
+
+            <a href="#" class="admin-nav-item" aria-label="Seguridad">
+                <img src="{% static 'admin/img/botonModeracionAdmin.png' %}" alt="">
+            </a>
+
+            <a href="{% url 'admin_inicio' %}" class="admin-nav-item" aria-label="Inicio"
+               {% if request.resolver_match.url_name == 'administrador' or request.resolver_match.url_name == 'admin_inicio' %}aria-current="page"{% endif %}>
+                <img src="{% static 'admin/img/botonHomeAdmin.png' %}" alt="">
+            </a>
+
+            <a href="{% url 'admin_notificaciones' %}" class="admin-nav-item" aria-label="Mensajes">
+                <img src="{% static 'admin/img/botonNotificacionAdmin.png' %}" alt="">
+            </a>
+
+            <a href="{% url 'admin_dinero' %}" class="admin-nav-item" aria-label="Dinero">
+                <img src="{% static 'admin/img/botonDineroAdmin.png' %}" alt="">
+            </a>
+        </nav>
+
+</div>
+{% block body_extra %}{% endblock %}
+</body>
+</html>
