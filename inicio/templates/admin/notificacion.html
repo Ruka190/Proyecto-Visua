@@ -13,36 +13,45 @@
 
 {% block content %}
 <div class="list-group notificaciones">
-  <a href="#" class="notificacion">
-    <img class="notificacion-icono"
-         src="{% static 'admin/img/botonNotificacionAdmin.png' %}"
-         alt="">
 
-    <span class="notificacion-texto">
-      <span class="notificacion-titulo">Usuario Reportado</span>
-      <span class="notificacion-descripcion">
-        Nuevo reporte usuario Maria Paquita por...
-      </span>
-    </span>
+    {% for notificacion in notificaciones %}
 
-    <img class="notificacion-flecha"
-         src="{% static 'admin/img/BotonFlechaD.png' %}"
-         alt="">
-  </a>
+    <a href="#" class="notificacion">
 
-  <a href="#" class="notificacion">
-    <img class="notificacion-icono"
-         src="{% static 'admin/img/botonNotificacionAdmin.png' %}"
-         alt="">
+        <img class="notificacion-icono"
+             src="{% static 'admin/img/botonNotificacionAdmin.png' %}"
+             alt="">
 
-    <span class="notificacion-texto">
-      <span class="notificacion-titulo">Nuevo Mensaje</span>
-      <span class="notificacion-descripcion">Nuevo correo recibido.</span>
-    </span>
+        <span class="notificacion-texto">
 
-    <img class="notificacion-flecha"
-         src="{% static 'admin/img/BotonFlechaD.png' %}"
-         alt="">
-  </a>
+            <span class="notificacion-titulo">
+                {% if notificacion.tema == "Reporte" %}
+                    Usuario Reportado
+                {% elif notificacion.tema == "Mensaje" %}
+                    Nuevo Mensaje
+                {% else %}
+                    {{ notificacion.tema }}
+                {% endif %}
+            </span>
+
+            <span class="notificacion-descripcion">
+                {{ notificacion.mensaje }}
+            </span>
+
+        </span>
+
+        <img class="notificacion-flecha"
+             src="{% static 'admin/img/BotonFlechaD.png' %}"
+             alt="">
+
+    </a>
+
+    {% empty %}
+
+        <p>No tienes notificaciones disponibles.</p>
+
+    {% endfor %}
+
 </div>
+
 {% endblock %}

@@ -16,31 +16,34 @@
     <section class="admin-panel" aria-label="Resumen del sitio">
         <div class="admin-stats">
             <article class="admin-stat-card">
-                <h2>Total de usuarios</h2>
-                <p>591.249</p>
+                <h2>Clientes registrados</h2>
+                <p><p>{{ clientes_registrados }}</p></p>
+            </article>
+
+            <article class="admin-stat-card">
+                <h2>Matches totales</h2>
+                <p>{{ matches_totales }}</p>
             </article>
 
             <article class="admin-stat-card">
                 <h2>Reportes de usuarios</h2>
-                <p>249</p>
+                <p>{{ reportes_usuarios }}</p>
             </article>
 
             <article class="admin-stat-card">
-                <h2>Usuarios activos</h2>
-                <p>639</p>
-            </article>
-
-            <article class="admin-stat-card">
-                <h2>Matches acumulados</h2>
-                <p>2.249</p>
+                <h2>Notificaciones pendientes</h2>
+                <p>{{ notificacion_pendiente }}</p>
             </article>
         </div>
     </section>
 
 
-     <section class="admin-panel admin-panel--chart"
-             aria-label="Gráfico de actividad">
-        <canvas id="ventasChart" height="120"></canvas>
+     <section class="admin-panel admin-panel--chart">
+        <h2>Conexiones recientes </h2>
+        <p>Usuarios conectados recientemente en la semana</p>
+        <div class="chart-container">
+            <canvas id="ventasChart" height="120"></canvas>
+        </div>
     </section>
 {% endblock %}
 
@@ -58,8 +61,16 @@
       options: {
         responsive: true,
         interaction: { mode: "index", intersect: false },
-        plugins: { legend: { position: "top" } },
-        scales: { y: { beginAtZero: true } }
+        plugins: { legend: { display: false } },
+        scales: { 
+            y: { 
+                beginAtZero: true ,
+                title: { display: true, text: "Cantidad de usuarios" }
+            },
+            x: {
+                title: { display: true, text: "Día de semana" }
+            }, 
+        }
       }
     });
   </script>

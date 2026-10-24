@@ -6,7 +6,7 @@
 
 {% block header %}
     <div class="admin-welcome">
-        <h1>Estadisticas Financieras</h1>
+        <h1>Estadisticas Beyond Date</h1>
     </div>
 {% endblock %}
 
@@ -19,24 +19,41 @@
         
         <div class="admin-stats">
             <article class="admin-stat-card">
-                <h3>Ingresos Mensuales</h3>
-                <p>+13.2%</p>
+                <h3>Clientes con match</h3>
+                <p>{{ kpi_matchs }}%</p>
             </article>
 
             <article class="admin-stat-card">
-                <h3>Egresos Mensuales</h3>
-                <p>-32.3%</p>
+                <h3>Clientes estancados</h3>
+                <p>{{ kpi_estancados }}%</p>
             </article>
         </div>
     </section>
 
     <section class="admin-panel admin-panel--chart">
-        <canvas id="ventasChart" height="120"></canvas>
+        <h2>Histórico Matchs</h2>
+        <p>Evolución de matches por mes</p>
+        <div class="chart-container">
+          <canvas id="ChartHistoricoMatchs" height="260"></canvas>
+        </div>
     </section>
 
     <section class="admin-panel admin-panel--chart">
-        <canvas id="ventasChart2" height="120"></canvas>
+        <h2>Distribución de edades</h2>
+        <p>Proporción de edades segun genero</p>
+        <div class="chart-container">
+            <canvas id="ChartDistribucionEdades" height="260"></canvas>
+        </div>
     </section>
+
+     <section class="admin-panel admin-panel--chart">
+        <h2>Top 5 gustos más populares</h2>
+        <p>Cantidad de usuarios por gusto</p>
+        <div class="chart-container">
+            <canvas id="ChartTopGustos" height="260"></canvas>
+        </div>
+    </section>
+
 {% endblock %}
 
 
@@ -48,13 +65,14 @@
     const labels   = JSON.parse('{{ labels_json|escapejs }}');
     const datasets = JSON.parse('{{ datasets_json|escapejs }}');
 
-    new Chart(document.getElementById("ventasChart"), {
+    new Chart(document.getElementById("ChartHistoricoMatchs"), {
       type: "line",
       data: { labels, datasets },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         interaction: { mode: "index", intersect: false },
-        plugins: { legend: { position: "top" } },
+        plugins: { legend:  { display: false }},
         scales: { y: { beginAtZero: true } }
       }
     });
@@ -62,16 +80,73 @@
 
 
   <script>
+    const edadesLabels = JSON.parse('{{ edades_labels_json|escapejs }}');
     const datasets2 = JSON.parse('{{ datasets2_json|escapejs }}');
+    const maxEdad = Math.ceil(
+      Math.max(...datasets2.flatMap(serie => serie.data.map(Math.abs))) / 20
+    ) * 20;
 
-    new Chart(document.getElementById("ventasChart2"), {
-      type: "line",
-      data: { labels, datasets: datasets2 },
+    new Chart(document.getElementById("ChartDistribucionEdades"), {
+      type: "bar",
+      data: { labels: edadesLabels, datasets: datasets2 },
       options: {
         responsive: true,
-        interaction: { mode: "index", intersect: false },
-        plugins: { legend: { position: "top" } },
-        scales: { y: { beginAtZero: true } }
+        maintainAspectRatio: false,
+        indexAxis: "y",
+        plugins: {
+          legend: { position: "top" },
+          tooltip: {
+            callbacks: {
+              label: contexto => `${contexto.dataset.label}: ${Math.abs(contexto.parsed.x)} usuarios`
+            }
+          }
+        },
+        scales: {
+          x: {
+            stacked: true,
+            min: -maxEdad,
+            max: maxEdad,
+            ticks: { callback: valor => Math.abs(valor) },
+            title: { display: true, text: "Cantidad de usuarios" }
+          },
+          y: {
+            stacked: true,
+            reverse: true,
+            ticks: { autoSkip: false },
+            title: { display: true, text: "Edad" }
+          }
+        }
+      }
+    });
+  </script>
+
+  <script>
+    const gustosLabels = JSON.parse('{{ gustos_labels_json|escapejs }}');
+    const gustosValores = JSON.parse('{{ gustos_valores_json|escapejs }}');
+
+    new Chart(document.getElementById("ChartTopGustos"), {
+      type: "bar",
+      data: {
+        labels: gustosLabels,
+        datasets: [{
+          data: gustosValores,
+          backgroundColor: "#B94448",
+          borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        indexAxis: "y",
+        plugins: { legend: { display: false } },
+        scales: {
+          x: {
+            beginAtZero: true,
+            ticks: { precision: 0 },
+            title: { display: true, text: "Cantidad de usuarios" }
+          },
+          y: { ticks: { autoSkip: false } }
+        }
       }
     });
   </script>

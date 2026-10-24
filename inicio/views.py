@@ -27,14 +27,20 @@ def administrador(request):
     return render(request, 'admin/administrador.html')
 
 def admin_inicio(request):
-    labels = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"]
+    labels = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"]
     datasets = [{
-        "label": "Ventas ($)",
-        "data": [120, 180, 90, 220, 150],
-        "tension": 0.2,
-        "fill": True,
-    }]
+            "data": [120, 180, 90, 220, 150],
+            "borderColor": "#B94448",
+            "backgroundColor": "#B944482E",
+            "tension": 0.2,
+            "fill": True,
+        }]
+
     return render(request, "admin/inicio.html", {
+        "clientes_registrados": 20, ##
+        "matches_totales": 20012, ##
+        "reportes_usuarios": 33, ##s
+        "notificacion_pendiente": 67, ##
         "labels_json": json.dumps(labels, ensure_ascii=False),
         "datasets_json": json.dumps(datasets, ensure_ascii=False),
     })
@@ -43,27 +49,79 @@ def admin_dinero(request):
 
     labels = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"]
     datasets = [{
-            "label": "Ventas ($)",
             "data": [120, 180, 90, 220, 150],
+            "borderColor": "#B94448",
+            "backgroundColor": "#B944482E",
             "tension": 0.2,
             "fill": True,
         }]
-    datasets2 = [{
-                "label": "Ventas ($)",
-                "data": [10, 50, 90, 30, -10],
-                "tension": 0.2,
-                "fill": True,
-            }]
+
+    
+    edades_labels = ["18-19", "20-29", "30-39", "40-49", "50-59", "60+"]
+    hombres_por_edad = {"18-19": 38, "20-29": 55, "30-39": 64, "40-49": 52, "60+": 22}
+    mujeres_por_edad = {"18-19": 42, "20-29": 61, "30-39": 70, "40-49": 58, "60+": 35}
+    datasets2 = [
+        {
+            "label": "Hombres",
+            "data": [-hombres_por_edad.get(rango, 0) for rango in edades_labels],
+            "backgroundColor": "#652E38",
+        },
+        {
+            "label": "Mujeres",
+            "data": [mujeres_por_edad.get(rango, 0) for rango in edades_labels],
+            "backgroundColor": "#E86E67",
+        },
+    ]
+
+    top_gustos = {"Música": 60, "Viajes": 55, "Cine": 49, "Deporte": 32, "Libros": 2}
+    gustos_ordenados = sorted(top_gustos.items(), key=lambda gusto: gusto[1], reverse=True)[:5]
+
     context = {
         "labels_json": json.dumps(labels, ensure_ascii=False),
         "datasets_json": json.dumps(datasets, ensure_ascii=False),
+        "edades_labels_json": json.dumps(edades_labels, ensure_ascii=False),
         "datasets2_json": json.dumps(datasets2, ensure_ascii=False),
+        "gustos_labels_json": json.dumps([gusto for gusto, _ in gustos_ordenados], ensure_ascii=False),
+        "gustos_valores_json": json.dumps([total for _, total in gustos_ordenados]),
+        "kpi_matchs": 60.3, ###Clientes con al menos un match/ total * 100
+        "kpi_estancados": 3.25, ### Clientes sin match / total* 100 
     }
 
     return render(request, "admin/dinero.html", context)
 
 def admin_notificaciones(request):
-    return render(request, "admin/notificacion.html")
+    notificaciones = [
+        {
+            "id_notificacion": 1,
+            "tema": "Reporte",
+            "fecha": "Enero",
+            "id_usuario": 2,
+            "mensaje": "Usuario reportado por feo",
+            "estado": 1
+        },
+        {
+            "id_notificacion": 2,
+            "tema": "Mensaje",
+            "fecha": "Febrero",
+            "id_usuario": 3,
+            "mensaje": "Nuevo correo en bandeja",
+            "estado": 1
+        },
+        {
+            "id_notificacion": 3,
+            "tema": "Reporte",
+            "fecha": "Marzo",
+            "id_usuario": 1,
+            "mensaje": "Usuario menor de edad",
+            "estado": 2
+        }
+    ]
+
+    return render(
+        request,
+        "admin/notificacion.html",
+        {"notificaciones": notificaciones}
+    )
 
 
 def login_view(request):
