@@ -6,7 +6,7 @@
 
 {% block header %}
     <div class="admin-welcome">
-        <h1>Estadisticas Beyond Date</h1>
+        <h1>Estadísticas Beyond Date</h1>
     </div>
 {% endblock %}
 
@@ -30,9 +30,18 @@
         </div>
     </section>
 
-    <section class="admin-panel admin-panel--chart">
-        <h2>Histórico Matchs</h2>
-        <p>Evolución de matches por mes</p>
+    <section class="admin-panel admin-panel--chart" aria-labelledby="titulo-historico-matchs">
+        <div class="admin-chart-header">
+            <div>
+                <h2 id="titulo-historico-matchs">Histórico Matchs</h2>
+                <p id="detalle-historico-matchs">Matches por día de la semana</p>
+            </div>
+            <div class="admin-period-selector" role="group" aria-label="Periodo del histórico de matches">
+                <button type="button" class="admin-period-button active" data-periodo="semana" aria-pressed="true">Semana</button>
+                <button type="button" class="admin-period-button" data-periodo="mes" aria-pressed="false">Mes</button>
+                <button type="button" class="admin-period-button" data-periodo="anio" aria-pressed="false">Año</button>
+            </div>
+        </div>
         <div class="chart-container">
           <canvas id="ChartHistoricoMatchs" height="260"></canvas>
         </div>
@@ -61,21 +70,50 @@
 {% block body_extra %}
   <script src="{% static 'chart.umd.min.js' %}"></script>
   <script>
-    // Recupera JSON seguro desde la view
-    const labels   = JSON.parse('{{ labels_json|escapejs }}');
-    const datasets = JSON.parse('{{ datasets_json|escapejs }}');
+    const periodosMatchs = JSON.parse('{{ periodos_matchs_json|escapejs }}');
+    const botonesPeriodo = document.querySelectorAll('.admin-period-button[data-periodo]');
+    const periodoInicial = periodosMatchs.semana;
 
-    new Chart(document.getElementById("ChartHistoricoMatchs"), {
+    const chartMatchs = new Chart(document.getElementById("ChartHistoricoMatchs"), {
       type: "line",
-      data: { labels, datasets },
+      data: {
+        labels: periodoInicial.labels,
+        datasets: [{
+          data: periodoInicial.data,
+          borderColor: "#B94448",
+          backgroundColor: "#B944482E",
+          tension: 0.2,
+          fill: true
+        }]
+      },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         interaction: { mode: "index", intersect: false },
-        plugins: { legend:  { display: false }},
-        scales: { y: { beginAtZero: true } }
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, ticks: { precision: 0 } },
+          x: { title: { display: true, text: periodoInicial.eje_x } }
+        }
       }
     });
+
+    botonesPeriodo.forEach(boton => boton.addEventListener('click', () => {
+      const periodo = periodosMatchs[boton.dataset.periodo];
+      if (!periodo) return;
+
+      chartMatchs.data.labels = periodo.labels;
+      chartMatchs.data.datasets[0].data = periodo.data;
+      chartMatchs.options.scales.x.title.text = periodo.eje_x;
+      document.getElementById('detalle-historico-matchs').textContent = periodo.detalle;
+
+      botonesPeriodo.forEach(opcion => {
+        const activo = opcion === boton;
+        opcion.classList.toggle('active', activo);
+        opcion.setAttribute('aria-pressed', String(activo));
+      });
+      chartMatchs.update();
+    }));
   </script>
 
 

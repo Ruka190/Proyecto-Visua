@@ -36,9 +36,10 @@ def admin_inicio(request):
             "fill": True,
         }]
 
+    matches_totales = 20012
     return render(request, "admin/inicio.html", {
         "clientes_registrados": 20, ##
-        "matches_totales": 20012, ##
+        "matches_totales": f"{matches_totales:,}".replace(",", "."), ##
         "reportes_usuarios": 33, ##s
         "notificacion_pendiente": 67, ##
         "labels_json": json.dumps(labels, ensure_ascii=False),
@@ -47,14 +48,26 @@ def admin_inicio(request):
 
 def admin_dinero(request):
 
-    labels = ["Enero", "Febrero", "Marzo", "Abril", "Mayo"]
-    datasets = [{
-            "data": [120, 180, 90, 220, 150],
-            "borderColor": "#B94448",
-            "backgroundColor": "#B944482E",
-            "tension": 0.2,
-            "fill": True,
-        }]
+    periodos_matchs = {
+        "semana": {
+            "labels": ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
+            "data": [18, 26, 20, 34, 29, 41, 23],
+            "detalle": "Matches por día de la semana",
+            "eje_x": "Día",
+        },
+        "mes": {
+            "labels": ["Semana 1", "Semana 2", "Semana 3", "Semana 4"],
+            "data": [120, 180, 145, 220],
+            "detalle": "Matches por semana del mes",
+            "eje_x": "Semana",
+        },
+        "anio": {
+            "labels": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+            "data": [120, 180, 90, 220, 150, 175, 205, 190, 230, 215, 245, 260],
+            "detalle": "Matches por mes del año",
+            "eje_x": "Mes",
+        },
+    }
 
     
     edades_labels = ["18-19", "20-29", "30-39", "40-49", "50-59", "60+"]
@@ -77,8 +90,7 @@ def admin_dinero(request):
     gustos_ordenados = sorted(top_gustos.items(), key=lambda gusto: gusto[1], reverse=True)[:5]
 
     context = {
-        "labels_json": json.dumps(labels, ensure_ascii=False),
-        "datasets_json": json.dumps(datasets, ensure_ascii=False),
+        "periodos_matchs_json": json.dumps(periodos_matchs, ensure_ascii=False),
         "edades_labels_json": json.dumps(edades_labels, ensure_ascii=False),
         "datasets2_json": json.dumps(datasets2, ensure_ascii=False),
         "gustos_labels_json": json.dumps([gusto for gusto, _ in gustos_ordenados], ensure_ascii=False),
