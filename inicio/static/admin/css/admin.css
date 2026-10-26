@@ -267,11 +267,11 @@ body {
     bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
-    width: min(90%, 480px);
+    width: min(90%, 640px);
     padding: 8px 12px;
     background-color: #f7e1d7;
     border: 1.5px solid #e0c8be;
-    border-radius: 40px;
+    border-radius: 0px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     z-index: 1050;
 }
